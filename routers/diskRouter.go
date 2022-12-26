@@ -1,12 +1,13 @@
 package routers
 
 import (
-	"halo/services"
+	"halo/controllers/disks"
 
 	"github.com/gin-gonic/gin"
 )
 
-func DiskRouter(r *gin.RouterGroup) {
-	rg := r.Group("/disks")
-	rg.GET("/getalldisks", services.ListAllDisks)
+func DiskRouters(r *gin.Engine) {
+	diskRoutersInit := r.Group("/disks")
+	diskRoutersInit.GET("/getalldisks", disks.DiskController{}.ListAllDisks)
+
 }

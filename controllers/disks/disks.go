@@ -1,4 +1,4 @@
-package services
+package disks
 
 import (
 	"encoding/json"
@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Disks struct {
+type DiskController struct {
 	Blockdevices []Blockdevices `json:"blockdevices"`
 }
 
@@ -23,8 +23,7 @@ type Blockdevices struct {
 	Mountpoint interface{} `json:"mountpoint"`
 }
 
-func ListAllDisks(c *gin.Context) {
-
+func (d DiskController) ListAllDisks(c *gin.Context) {
 	// -d, --nodeps         don't print slaves or holders
 	// -O, --output-all     output all columns
 	// -b, --bytes          print SIZE in bytes rather than in human readable format
@@ -38,9 +37,4 @@ func ListAllDisks(c *gin.Context) {
 	fmt.Fprintln(gin.DefaultWriter, result)
 
 	c.JSON(http.StatusOK, gin.H{"result": json.RawMessage(result)})
-}
-
-func GetDiskDetails(c *gin.Context) {
-	c.JSON(http.StatusOK, "")
-
 }

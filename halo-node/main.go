@@ -23,7 +23,7 @@ func main() {
 		listenAddress = kingpin.Flag(
 			"halo-node-listen-address",
 			"The address to listen on for HTTP requests.",
-		).Default("0.0.0.0:8080").String()
+		).Default("0.0.0.0:8888").String()
 		logPath = kingpin.Flag(
 			"halo-node-log-path",
 			"The path to the log file.",
@@ -55,13 +55,7 @@ func main() {
 		router.Use(gin.BasicAuth(gin.Accounts{*basicAuthUser: *basicAuthPassword}))
 	}
 
-	v1 := router.Group("/v1")
-	routers.DiskRouter(v1)
-
-	// router.GET("/ping", func(c *gin.Context) {
-	// 	fmt.Fprintln(gin.DefaultWriter, "pong")
-	// 	c.String(http.StatusOK, "pong")
-	// })
+	routers.DiskRouters(router)
 
 	router.Run(*listenAddress)
 
